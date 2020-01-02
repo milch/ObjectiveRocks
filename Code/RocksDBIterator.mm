@@ -83,16 +83,20 @@
 
 - (NSData *)key
 {
-	rocksdb::Slice keySlice = _iterator->key();
-	NSData *key = DataFromSlice(keySlice);
-	return key;
+    rocksdb::Slice keySlice = _iterator->key();
+    NSData *key = [NSData dataWithBytesNoCopy:(void*)keySlice.data()
+                                       length:keySlice.size()
+                                 freeWhenDone:NO];
+    return key;
 }
 
 - (NSData *)value
 {
-	rocksdb::Slice valueSlice = _iterator->value();
-	NSData *value = DataFromSlice(valueSlice);
-	return value;
+    rocksdb::Slice valueSlice = _iterator->value();
+    NSData *key = [NSData dataWithBytesNoCopy:(void*)valueSlice.data()
+                                       length:valueSlice.size()
+                                 freeWhenDone:NO];
+    return key;
 }
 
 #pragma mark - Enumerate Keys
