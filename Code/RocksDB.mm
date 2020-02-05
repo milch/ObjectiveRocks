@@ -112,6 +112,7 @@
 
 + (instancetype)databaseForReadOnlyAtPath:(NSString *)path
 							 andDBOptions:(void (^)(RocksDBOptions *options))optionsBlock
+                                    error:(NSError**)error
 {
 	RocksDB *rocks = [[RocksDB alloc] initWithPath:path];
 
@@ -119,7 +120,7 @@
 		optionsBlock(rocks.options);
 	}
 
-	if ([rocks openDatabaseReadOnly:YES] == NO) {
+	if ([rocks openDatabaseReadOnly:YES error:error] == NO) {
 		return nil;
 	}
 	return rocks;
@@ -128,6 +129,7 @@
 + (instancetype)databaseForReadOnlyAtPath:(NSString *)path
 						   columnFamilies:(RocksDBColumnFamilyDescriptor *)descriptor
 					   andDatabaseOptions:(void (^)(RocksDBDatabaseOptions *options))optionsBlock
+                                    error:(NSError**)error
 {
 	RocksDB *rocks = [[RocksDB alloc] initWithPath:path];
 
@@ -137,7 +139,7 @@
 	}
 	rocks.options.databaseOptions = dbOptions;
 
-	if ([rocks openColumnFamilies:descriptor readOnly:YES] == NO) {
+	if ([rocks openColumnFamilies:descriptor readOnly:YES error:error] == NO) {
 		return nil;
 	}
 	return rocks;

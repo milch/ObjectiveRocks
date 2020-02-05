@@ -109,7 +109,8 @@ NS_ASSUME_NONNULL_BEGIN
  if `createIfMissing` option is set.
  */
 + (nullable instancetype)databaseForReadOnlyAtPath:(NSString *)path
-									  andDBOptions:(nullable void (^)(RocksDBOptions *options))options;
+									  andDBOptions:(nullable void (^)(RocksDBOptions *options))options
+											 error:(NSError**)error;
 
 /**
  Intializes a DB instance for read-only and opens the defined Column Families.
@@ -141,7 +142,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (nullable instancetype)databaseForReadOnlyAtPath:(NSString *)path
 									columnFamilies:(RocksDBColumnFamilyDescriptor *)descriptor
-								andDatabaseOptions:(nullable void (^)(RocksDBDatabaseOptions *options))options;
+								andDatabaseOptions:(nullable void (^)(RocksDBDatabaseOptions *options))options
+                                             error:(NSError**)error;
 
 #endif
 
