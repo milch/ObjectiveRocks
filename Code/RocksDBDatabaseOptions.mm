@@ -178,4 +178,12 @@
 	_options.bytes_per_sync = bytesPerSync;
 }
 
+- (RocksDBWALRecoveryMode)walRecoveryMode {
+    return (RocksDBWALRecoveryMode)_options.wal_recovery_mode;
+}
+
+- (void)setWalRecoveryMode:(RocksDBWALRecoveryMode)walRecoveryMode {
+    _options.wal_recovery_mode = (rocksdb::WALRecoveryMode)walRecoveryMode;
+}
+
 @end

@@ -26,6 +26,14 @@ typedef NS_ENUM(unsigned char, RocksDBLogLevel)
 	RocksDBLogLevelFatal
 };
 
+typedef NS_ENUM(unsigned char, RocksDBWALRecoveryMode)
+{
+    RocksDBWALRecoveryModeTolerateCorruptedTailRecords = 0x00,
+    RocksDBWALRecoveryModeAbsoluteConsistency = 0x01,
+    RocksDBWALRecoveryModePointInTimeRecovery = 0x02,
+    RocksDBWALRecoveryModeSkipAnyCorruptedRecords = 0x03
+};
+
 /**
  Options to control the behavior of the DB.
  */
@@ -94,6 +102,10 @@ typedef NS_ENUM(unsigned char, RocksDBLogLevel)
  written, asynchronously, in the background.
  The default is 0. */
 @property (nonatomic, assign) uint64_t bytesPerSync;
+
+/** @brief Recovery mode to control the consistency while replaying WAL
+ Default: kPointInTimeRecovery */
+@property (nonatomic, assign) RocksDBWALRecoveryMode walRecoveryMode;
 
 @end
 
