@@ -114,6 +114,10 @@ NS_ASSUME_NONNULL_BEGIN
  The default is 0. */
 @property (nonatomic, assign) uint64_t bytesPerSync;
 
+/** @brief Recovery mode to control the consistency while replaying WAL
+ Default: kPointInTimeRecovery */
+@property (nonatomic, assign) RocksDBWALRecoveryMode walRecoveryMode;
+
 @end
 
 #pragma mark - Column Family Options
