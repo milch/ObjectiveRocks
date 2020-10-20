@@ -178,7 +178,7 @@
 
 	[backupEngine restoreBackupToDestinationPath:_restorePath error:nil];
 
-	RocksDB *backupRocks = [RocksDB databaseAtPath:_restorePath andDBOptions:nil];
+	RocksDB *backupRocks = [RocksDB databaseAtPath:_restorePath andDBOptions:nil error: nil];
 
 	XCTAssertEqualObjects([backupRocks dataForKey:@"key 1".data error:nil], @"value 1".data);
 	XCTAssertEqualObjects([backupRocks dataForKey:@"key 2".data error:nil], @"value 2".data);
@@ -191,7 +191,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	RocksDBBackupEngine *backupEngine = [[RocksDBBackupEngine alloc] initWithPath:_backupPath];
 

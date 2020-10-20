@@ -11,9 +11,8 @@ import ObjectiveRocks
 
 class RocksDBReadOnlyTests : RocksDBTests {
 
-	func testDB_Open_ReadOnly_NilIfMissing() throws {
-		rocks = RocksDB.databaseForReadOnly(atPath: path, andDBOptions:nil)
-		XCTAssertNil(rocks);
+	func testDB_Open_ReadOnly_ThrowsIfMissing() throws {
+		XCTAssertThrowsError(try RocksDB.databaseForReadOnly(atPath: path, andDBOptions:nil))
 	}
 
 	func testDB_Open_ReadOnly() throws {
@@ -23,7 +22,7 @@ class RocksDBReadOnlyTests : RocksDBTests {
 		XCTAssertNotNil(rocks);
 		rocks.close()
 
-		rocks = RocksDB.databaseForReadOnly(atPath: path, andDBOptions:nil)
+		rocks = try RocksDB.databaseForReadOnly(atPath: path, andDBOptions:nil)
 		XCTAssertNotNil(rocks);
 	}
 
@@ -35,7 +34,7 @@ class RocksDBReadOnlyTests : RocksDBTests {
 		try! rocks.setData("data", forKey: "key")
 		rocks.close()
 
-		rocks = RocksDB.databaseForReadOnly(atPath: path, andDBOptions:nil)
+		rocks = try RocksDB.databaseForReadOnly(atPath: path, andDBOptions:nil)
 
 		try! rocks.data(forKey: "key")
 

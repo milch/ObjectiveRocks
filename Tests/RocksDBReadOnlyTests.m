@@ -16,7 +16,8 @@
 
 - (void)testDB_Open_ReadOnly_NilIfMissing
 {
-	_rocks = [RocksDB databaseForReadOnlyAtPath:_path andDBOptions:nil];
+	NSError *error = nil;
+	_rocks = [RocksDB databaseForReadOnlyAtPath:_path andDBOptions:nil error:&error];
 	XCTAssertNil(_rocks);
 }
 
@@ -29,7 +30,7 @@
 	XCTAssertNotNil(_rocks);
 	[_rocks close];
 
-	_rocks = [RocksDB databaseForReadOnlyAtPath:_path andDBOptions:nil];
+	_rocks = [RocksDB databaseForReadOnlyAtPath:_path andDBOptions:nil error:nil];
 	XCTAssertNotNil(_rocks);
 }
 
@@ -43,7 +44,7 @@
 	[_rocks setData:@"data".data forKey:@"key".data error:nil];
 	[_rocks close];
 
-	_rocks = [RocksDB databaseForReadOnlyAtPath:_path andDBOptions:nil];
+	_rocks = [RocksDB databaseForReadOnlyAtPath:_path andDBOptions:nil error:nil];
 
 	NSError *error = nil;
 	[_rocks dataForKey:@"key".data error:&error];

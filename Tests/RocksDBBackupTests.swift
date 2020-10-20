@@ -167,14 +167,13 @@ class RocksDBBackupTests : RocksDBTests {
 
 		try! backupEngine.restoreBackup(toDestinationPath: self.restorePath)
 
-		let backuprocks = try RocksDB.database(atPath: restorePath, andDBOptions: nil)
+		let backupRocks = try RocksDB.database(atPath: restorePath, andDBOptions: nil)
 
-		XCTAssertNotNil(backupRocks)
-		XCTAssertEqual(try! backupRocks?.data(forKey: "key 1"), "value 1")
-		XCTAssertEqual(try! backupRocks?.data(forKey: "key 2"), "value 2")
-		XCTAssertEqual(try! backupRocks?.data(forKey: "key 3"), "value 3")
+		XCTAssertEqual(try! backupRocks.data(forKey: "key 1"), "value 1")
+		XCTAssertEqual(try! backupRocks.data(forKey: "key 2"), "value 2")
+		XCTAssertEqual(try! backupRocks.data(forKey: "key 3"), "value 3")
 
-		backupRocks?.close()
+		backupRocks.close()
 	}
 
 	func testSwift_Backup_Restore_Specific() throws {
@@ -197,23 +196,23 @@ class RocksDBBackupTests : RocksDBTests {
 
 		try! backupEngine.restoreBackup(withId: 1, toDestinationPath: self.restorePath)
 
-		var backuprocks = try RocksDB.database(atPath: restorePath, andDBOptions: nil)
+		var backupRocks = try RocksDB.database(atPath: restorePath, andDBOptions: nil)
 
-		XCTAssertEqual(try! backupRocks?.data(forKey: "key 1"), "value 1")
+		XCTAssertEqual(try! backupRocks.data(forKey: "key 1"), "value 1")
 
-		XCTAssertNil(try? backupRocks?.data(forKey: "key 2") as Any)
-		XCTAssertNil(try? backupRocks?.data(forKey: "key 3") as Any)
+		XCTAssertNil(try? backupRocks.data(forKey: "key 2") as Any)
+		XCTAssertNil(try? backupRocks.data(forKey: "key 3") as Any)
 
-		backupRocks?.close()
+		backupRocks.close()
 
 		try! backupEngine.restoreBackup(withId: 2, toDestinationPath: self.restorePath)
 
-		backuprocks = try RocksDB.database(atPath: restorePath, andDBOptions: nil)
+		backupRocks = try RocksDB.database(atPath: restorePath, andDBOptions: nil)
 
-		XCTAssertEqual(try! backupRocks?.data(forKey: "key 1"), "value 1")
-		XCTAssertEqual(try! backupRocks?.data(forKey: "key 2"), "value 2")
-		XCTAssertNil(try? backupRocks?.data(forKey: "key 3") as Any)
+		XCTAssertEqual(try! backupRocks.data(forKey: "key 1"), "value 1")
+		XCTAssertEqual(try! backupRocks.data(forKey: "key 2"), "value 2")
+		XCTAssertNil(try? backupRocks.data(forKey: "key 3") as Any)
 
-		backupRocks?.close()
+		backupRocks.close()
 	}
 }
