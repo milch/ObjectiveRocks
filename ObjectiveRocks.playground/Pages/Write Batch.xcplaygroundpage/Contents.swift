@@ -15,7 +15,7 @@ Given the following DB and Column Family:
 */
 
 let url: URL = playgroundURL(forDB: "WriteBatch")
-let rocks = RocksDB.database(atPath: url.path) { options in
+let rocks = try RocksDB.database(atPath: url.path) { options in
 	options.createIfMissing = true
 }
 

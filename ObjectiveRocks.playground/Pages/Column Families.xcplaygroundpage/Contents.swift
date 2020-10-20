@@ -25,7 +25,7 @@ let url: URL = playgroundURL(forDB: "ColumnFamilies")
 `RocksDB` has a `default` Column Family that is always used if not specified otherwise. The `RocksDBColumnFamilyOptions` that you provide
 when opening a DB instance are assigned to this `default` Column Family. In this case a `RocksDBComparator` is provided, that sorts String keys in ascending order:
 */
-let rocks = RocksDB.database(atPath: url.path) { options in
+let rocks = try RocksDB.database(atPath: url.path) { options in
 	options.createIfMissing = true
 	options.comparator = RocksDBComparator.comaparator(with: .stringCompareAscending)
 }
@@ -79,7 +79,7 @@ descriptor.addColumnFamily(withName: "new_column_family") { (options) in
 	options.comparator = RocksDBComparator.comaparator(with: .stringCompareDescending)
 }
 
-let newRocks = RocksDB.database(atPath: url.path, columnFamilies: descriptor)
+let newrocks = try RocksDB.database(atPath: url.path, columnFamilies: descriptor)
 
 guard let newRocks = newRocks else {
 	PlaygroundPage.current.finishExecution()

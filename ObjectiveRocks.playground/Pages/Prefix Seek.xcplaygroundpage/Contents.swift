@@ -14,7 +14,7 @@ let url: URL = playgroundURL(forDB: "PrefixSeek")
 /*:
 `RocksDBIterator` supports iterating inside a key-prefix by providing a `RocksDBPrefixExtractor`. One such extractor is built-in and it extracts a fixed-length prefix for each key:
 */
-let rocks = RocksDB.database(atPath: url.path) { options in
+let rocks = try RocksDB.database(atPath: url.path) { options in
 	options.createIfMissing = true
 	options.prefixExtractor = RocksDBPrefixExtractor(type: .fixedLength, length: 4)
 }

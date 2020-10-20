@@ -16,7 +16,7 @@ let url: URL = playgroundURL(forDB: "Basics")
 /*:
 `RocksDB` features many configuration settings, that can be specified when opening the database. `ObjectiveRocks` offers a blocks-based initializer for this purpose. The minimum configuration that you'll need is `createIfMissing` in order to create a new database if it doesn't already exist:
 */
-let rocks = RocksDB.database(atPath: url.path) { options in
+let rocks = try RocksDB.database(atPath: url.path) { options in
 	options.createIfMissing = true
 }
 

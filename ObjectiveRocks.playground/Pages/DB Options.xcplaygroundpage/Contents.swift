@@ -14,7 +14,7 @@ import ObjectiveRocks
 
 let url: URL = playgroundURL(forDB: "DBOptions")
 
-let rocks = RocksDB.database(atPath: url.path) { options in
+let rocks = try RocksDB.database(atPath: url.path) { options in
 	options.createIfMissing = true
 
 	options.writeBufferSize = 64 * 1024 * 1024
