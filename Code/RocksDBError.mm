@@ -11,6 +11,7 @@
 #import <rocksdb/status.h>
 
 NSString * const RocksDBErrorDomain = @"co.braincookie.objectiverocks.error";
+NSString * const RocksDBSubcodeKey = @"rocksdb.subcode";
 
 @implementation RocksDBError
 
@@ -19,9 +20,10 @@ NSString * const RocksDBErrorDomain = @"co.braincookie.objectiverocks.error";
 	NSString *reason = [NSString stringWithUTF8String:status.ToString().c_str()];
 
 	NSDictionary *userInfo = @{
-							   NSLocalizedDescriptionKey : @"Operation couldn't be completed",
-							   NSLocalizedFailureReasonErrorKey : reason
-							   };
+								NSLocalizedDescriptionKey : @"Operation couldn't be completed",
+								NSLocalizedFailureReasonErrorKey : reason,
+								RocksDBSubcodeKey: @(status.subcode())
+								};
 
 	return [NSError errorWithDomain:RocksDBErrorDomain code:status.code() userInfo:userInfo];
 }
