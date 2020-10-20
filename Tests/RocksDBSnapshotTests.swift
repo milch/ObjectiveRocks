@@ -12,7 +12,7 @@ import ObjectiveRocks
 class RocksDBSnapshotTests : RocksDBTests {
 
 	func testSwift_Snapshot() {
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 		});
 
@@ -37,7 +37,7 @@ class RocksDBSnapshotTests : RocksDBTests {
 	}
 
 	func testSwift_Snapshot_Iterator() {
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 		})
 
@@ -73,7 +73,7 @@ class RocksDBSnapshotTests : RocksDBTests {
 	}
 
 	func testSwift_Snapshot_SequenceNumber() {
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 		})
 

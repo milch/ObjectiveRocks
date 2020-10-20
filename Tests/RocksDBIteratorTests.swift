@@ -12,7 +12,7 @@ import ObjectiveRocks
 class RocksDBIteratorTests : RocksDBTests {
 
 	func testSwift_DB_Iterator() {
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 		})
 
@@ -36,7 +36,7 @@ class RocksDBIteratorTests : RocksDBTests {
 	}
 
 	func testSwift_DB_Iterator_Seek() {
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 		})
 
@@ -79,7 +79,7 @@ class RocksDBIteratorTests : RocksDBTests {
 	}
 
 	func testSwift_DB_Iterator_EnumerateKeys() {
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 		})
 
@@ -101,7 +101,7 @@ class RocksDBIteratorTests : RocksDBTests {
 	}
 
 	func testSwift_DB_Iterator_EnumerateKeys_Reverse() {
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 		})
 
@@ -123,7 +123,7 @@ class RocksDBIteratorTests : RocksDBTests {
 	}
 
 	func testSwift_DB_Iterator_EnumerateKeys_RangeStart() {
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 		})
 
@@ -146,7 +146,7 @@ class RocksDBIteratorTests : RocksDBTests {
 	}
 
 	func testSwift_DB_Iterator_EnumerateKeys_RangeEnd() {
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 		})
 
@@ -169,7 +169,7 @@ class RocksDBIteratorTests : RocksDBTests {
 	}
 
 	func testSwift_DB_Iterator_EnumerateKeys_RangeStartEnd() {
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 		})
 
@@ -192,7 +192,7 @@ class RocksDBIteratorTests : RocksDBTests {
 	}
 
 	func testSwift_DB_Iterator_EnumerateKeysAndValues() {
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 		})
 
@@ -215,7 +215,7 @@ class RocksDBIteratorTests : RocksDBTests {
 	}
 
 	func testSwift_DB_Iterator_EnumerateKeysAndValues_Reverse() {
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 		})
 
@@ -238,7 +238,7 @@ class RocksDBIteratorTests : RocksDBTests {
 	}
 
 	func testSwift_DB_Iterator_EnumerateKeysAndValues_RangeStart() {
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 		})
 
@@ -262,7 +262,7 @@ class RocksDBIteratorTests : RocksDBTests {
 	}
 
 	func testSwift_DB_Iterator_EnumerateKeysAndValues_RangeEnd() {
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 		})
 
@@ -286,7 +286,7 @@ class RocksDBIteratorTests : RocksDBTests {
 	}
 
 	func testSwift_DB_Iterator_EnumerateKeysAndValues_RangeStartEnd() {
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 		})
 

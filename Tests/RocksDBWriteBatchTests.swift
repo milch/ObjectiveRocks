@@ -12,7 +12,7 @@ import ObjectiveRocks
 class RocksDBWriteBatchTests : RocksDBTests {
 
 	func testSwift_WriteBatch_Perform() {
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 		})
 
@@ -29,7 +29,7 @@ class RocksDBWriteBatchTests : RocksDBTests {
 	}
 
 	func testSwift_WriteBatch_Perform_DeleteOps() {
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 		})
 
@@ -48,7 +48,7 @@ class RocksDBWriteBatchTests : RocksDBTests {
 	}
 
 	func testSwift_WriteBatch_Perform_ClearOps() {
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 		})
 
@@ -69,7 +69,7 @@ class RocksDBWriteBatchTests : RocksDBTests {
 	}
 
 	func testSwift_WriteBatch_Apply() {
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 		})
 
@@ -88,7 +88,7 @@ class RocksDBWriteBatchTests : RocksDBTests {
 	}
 
 	func testSwift_WriteBatch_Apply_DeleteOps() {
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 		})
 
@@ -109,7 +109,7 @@ class RocksDBWriteBatchTests : RocksDBTests {
 	}
 
 	func testSwift_WriteBatch_Apply_MergeOps() {
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 			options.mergeOperator = RocksDBMergeOperator(name: "merge") { (key, existing, value) -> Data in
 				var result: String = ""
@@ -139,7 +139,7 @@ class RocksDBWriteBatchTests : RocksDBTests {
 	}
 
 	func testSwift_WriteBatch_Apply_ClearOps() {
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 		})
 
@@ -162,7 +162,7 @@ class RocksDBWriteBatchTests : RocksDBTests {
 	}
 
 	func testSwift_WriteBatch_Count() {
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 		})
 

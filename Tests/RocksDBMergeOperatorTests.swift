@@ -65,7 +65,7 @@ class RocksDBMergeOperatorTests : RocksDBTests {
 			return (prev + plus).data
 		}
 
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 			options.mergeOperator = mergeOp
 		})
@@ -91,7 +91,7 @@ class RocksDBMergeOperatorTests : RocksDBTests {
 			return (prev + plus).data
 		}
 
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 			options.mergeOperator = mergeOp
 		})
@@ -117,7 +117,7 @@ class RocksDBMergeOperatorTests : RocksDBTests {
 			return dict.data
 		}
 
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 			options.mergeOperator = mergeOp
 		})
@@ -173,7 +173,7 @@ class RocksDBMergeOperatorTests : RocksDBTests {
 
 		let mergeOp = RocksDBMergeOperator(name: "operator", partialMerge: partial, fullMerge: full)
 
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 			options.mergeOperator = mergeOp
 		})

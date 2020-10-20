@@ -12,7 +12,7 @@ import ObjectiveRocks
 class RocksDBPrefixExtractorTests : RocksDBTests {
 
 	func testSwift_PrefixExtractor_FixedLength() {
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 			options.prefixExtractor = RocksDBPrefixExtractor(type: .fixedLength, length: 3)
 		})
@@ -78,7 +78,7 @@ class RocksDBPrefixExtractorTests : RocksDBTests {
 			}
 		}
 
-		rocks = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 			options.comparator = cmp
 			options.prefixExtractor = RocksDBPrefixExtractor(type: .fixedLength, length: 2)

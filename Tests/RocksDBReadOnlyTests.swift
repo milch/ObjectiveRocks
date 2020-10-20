@@ -17,7 +17,7 @@ class RocksDBReadOnlyTests : RocksDBTests {
 	}
 
 	func testDB_Open_ReadOnly() {
-		rocks = RocksDB.database(atPath: path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true;
 		});
 		XCTAssertNotNil(rocks);
@@ -28,7 +28,7 @@ class RocksDBReadOnlyTests : RocksDBTests {
 	}
 
 	func testDB_ReadOnly_NotWritable() {
-		rocks = RocksDB.database(atPath: path, andDBOptions: { (options) -> Void in
+		rocks = try RocksDB.database(atPath: path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true;
 		});
 		XCTAssertNotNil(rocks);
