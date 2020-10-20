@@ -11,20 +11,18 @@ import ObjectiveRocks
 
 class RocksDBBasicTests : RocksDBTests {
 
-	func testSwift_DB_Open_ErrorIfExists() {
+	func testSwift_DB_Open_ErrorIfExists() throws {
 		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 		})
 		rocks.close()
 
-		let db = RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
+		XCTAssertThrowsError(try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.errorIfExists = true
-		})
-
-		XCTAssertNil(db)
+		}))
 	}
     
-    func testSwift_DB_IsClosed() {
+    func testSwift_DB_IsClosed() throws {
         rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
             options.createIfMissing = true
         })
@@ -33,7 +31,7 @@ class RocksDBBasicTests : RocksDBTests {
         XCTAssertTrue(rocks.isClosed())
     }
 
-	func testSwift_DB_CRUD() {
+	func testSwift_DB_CRUD() throws {
 		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 		})

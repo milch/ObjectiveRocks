@@ -51,7 +51,7 @@ extension Dictionary {
 
 class RocksDBMergeOperatorTests : RocksDBTests {
 
-	func testSwift_AssociativeMergeOperator() {
+	func testSwift_AssociativeMergeOperator() throws {
 
 		let mergeOp = RocksDBMergeOperator(name: "operator") { (key, existing, value) -> Data in
 			let prev: Int
@@ -78,7 +78,7 @@ class RocksDBMergeOperatorTests : RocksDBTests {
 		XCTAssertEqual(res, 6)
 	}
 
-	func testSwift_AssociativeMergeOperator_NumberAdd() {
+	func testSwift_AssociativeMergeOperator_NumberAdd() throws {
 		let mergeOp = RocksDBMergeOperator(name: "operator") { (key, existing, value) -> Data in
 			let prev: Double
 			if let existing = existing {
@@ -104,7 +104,7 @@ class RocksDBMergeOperatorTests : RocksDBTests {
 		XCTAssertEqual(res, Double(300.666), accuracy: Double(0.0001))
 	}
 
-	func testSwift_AssociativeMergeOperator_DictionaryPut() {
+	func testSwift_AssociativeMergeOperator_DictionaryPut() throws {
 
 		let mergeOp = RocksDBMergeOperator(name: "operator") { (key, existing, value) -> Data in
 			guard let existing = existing else {
@@ -142,7 +142,7 @@ class RocksDBMergeOperatorTests : RocksDBTests {
 		}
 	}
 
-	func testSwift_MergeOperator_DictionaryUpdate() {
+	func testSwift_MergeOperator_DictionaryUpdate() throws {
 
 		let partial = { (key: Data, leftOperand: Data, rightOperand: Data) -> Data? in
 			let left = String(data: leftOperand, encoding: .utf8)!.components(separatedBy: ":")[0]

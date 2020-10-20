@@ -20,7 +20,8 @@
 		options.createIfMissing = YES;
 		options.maxWriteBufferNumber = 10;
 		options.minWriteBufferNumberToMerge = 10;
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"value 1".data forKey:@"key 1".data error:nil];
 	[_rocks setData:@"value 2".data forKey:@"key 2".data error:nil];
@@ -39,7 +40,8 @@
 	_rocks = [RocksDB databaseAtPath:_path columnFamilies:descriptor andDatabaseOptions:^(RocksDBDatabaseOptions *options) {
 		options.createIfMissing = YES;
 		options.createMissingColumnFamilies = YES;
-	}];
+	}
+							   error: nil];
 
 	XCTAssertGreaterThanOrEqual([_rocks.columnFamilies[0] valueForIntProperty:RocksDBIntPropertyEstimatedNumKeys], 0);
 	XCTAssertNotNil([(RocksDB *)_rocks.columnFamilies[0] valueForProperty:RocksDBPropertyStats]);

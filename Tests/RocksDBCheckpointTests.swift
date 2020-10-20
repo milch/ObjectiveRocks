@@ -11,7 +11,7 @@ import ObjectiveRocks
 
 class RocksDBCheckpointTests : RocksDBTests {
 
-	func testSwift_Checkpoint() {
+	func testSwift_Checkpoint() throws {
 		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 		})

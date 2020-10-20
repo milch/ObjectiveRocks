@@ -11,7 +11,7 @@ import ObjectiveRocks
 
 class RocksDBPropertiesTests : RocksDBTests {
 
-	func testSwift_Properties() {
+	func testSwift_Properties() throws {
 		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
 			options.createIfMissing = true
 			options.maxWriteBufferNumber = 10;
@@ -26,7 +26,7 @@ class RocksDBPropertiesTests : RocksDBTests {
 		XCTAssertGreaterThan(rocks.value(for: .curSizeActiveMemTable), 0 as UInt64);
 	}
 
-	func testSwift_Properties_ColumnFamily() {
+	func testSwift_Properties_ColumnFamily() throws {
 
 		let descriptor = RocksDBColumnFamilyDescriptor()
 		descriptor.addDefaultColumnFamily(options: nil)

@@ -18,12 +18,15 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 	[_rocks close];
 
+	NSError *error = nil;
 	RocksDB *db = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.errorIfExists = YES;
-	}];
+	}
+									error: &error];
 
 	XCTAssertNil(db);
 }
@@ -32,7 +35,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 	[_rocks setDefaultReadOptions:^(RocksDBReadOptions *readOptions) {
 		readOptions.fillCache = YES;
 		readOptions.verifyChecksums = YES;

@@ -18,7 +18,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"value 1".data forKey:@"key 1".data error:nil];
 
@@ -34,7 +35,8 @@
 
 	_rocks = [RocksDB databaseAtPath:_chekpointPath_1 andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	XCTAssertEqualObjects([_rocks dataForKey:@"key 1".data error:nil], @"value 1".data);
 	XCTAssertNil([_rocks dataForKey:@"key 2".data error:nil]);
@@ -43,7 +45,8 @@
 
 	_rocks = [RocksDB databaseAtPath:_chekpointPath_2 andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	XCTAssertEqualObjects([_rocks dataForKey:@"key 1".data error:nil], @"value 1".data);
 	XCTAssertEqualObjects([_rocks dataForKey:@"key 2".data error:nil], @"value 2".data);

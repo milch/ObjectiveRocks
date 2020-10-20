@@ -23,7 +23,8 @@
 	_rocks = [RocksDB databaseAtPath:_path columnFamilies:descriptor andDatabaseOptions:^(RocksDBDatabaseOptions *options) {
 		options.createIfMissing = YES;
 		options.createMissingColumnFamilies = YES;
-	}];
+	}
+							   error: nil];
 
 	RocksDBColumnFamily *defaultColumnFamily = _rocks.columnFamilies[0];
 	RocksDBColumnFamily *newColumnFamily = _rocks.columnFamilies[1];

@@ -70,7 +70,8 @@
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
 		options.mergeOperator = mergeOp;
-	}];
+	}
+							   error: nil];
 
 	[_rocks mergeData:@(1).data forKey:@"Key 1".data error:nil];
 
@@ -96,7 +97,8 @@
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
 		options.mergeOperator = mergeOp;
-	}];
+	}
+							   error: nil];
 
 	[_rocks mergeData:@(100.541).data forKey:@"Key 1".data error:nil];
 
@@ -124,7 +126,8 @@
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
 		options.mergeOperator = mergeOp;
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@{@"Key 1": @"Value 1"}.data forKey:@"Dict Key".data error:nil];
 	
@@ -181,7 +184,8 @@
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
 		options.mergeOperator = mergeOp;
-	}];
+	}
+							   error: nil];
 
 	NSDictionary *object = @{@"Key 1" : @"Value 1",
 							 @"Key 2" : @"Value 2",

@@ -11,7 +11,7 @@ import ObjectiveRocks
 
 class RocksDBColumnFamilyMetadataTests : RocksDBTests {
 
-	func testSwift_ColumnFamilies_Metadata() {
+	func testSwift_ColumnFamilies_Metadata() throws {
 		let descriptor = RocksDBColumnFamilyDescriptor()
 		descriptor.addDefaultColumnFamily(options: nil)
 		descriptor.addColumnFamily(withName: "new_cf", andOptions: nil)

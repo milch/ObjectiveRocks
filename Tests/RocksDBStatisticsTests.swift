@@ -11,7 +11,7 @@ import ObjectiveRocks
 
 class RocksDBStatisticsTests : RocksDBTests {
 
-	func testSwift_Statistics() {
+	func testSwift_Statistics() throws {
 		let statistics = RocksDBStatistics()
 
 		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
@@ -24,7 +24,7 @@ class RocksDBStatisticsTests : RocksDBTests {
 		XCTAssertNotNil(statistics.description);
 	}
 
-	func testSwift_Statistics_Ticker() {
+	func testSwift_Statistics_Ticker() throws {
 		let statistics = RocksDBStatistics()
 
 		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in
@@ -42,7 +42,7 @@ class RocksDBStatisticsTests : RocksDBTests {
 		XCTAssertGreaterThan(statistics.count(for: RocksDBTicker.bytesRead), UInt64(0));
 	}
 
-	func testSwift_Statistics_Histogram() {
+	func testSwift_Statistics_Histogram() throws {
 		let statistics = RocksDBStatistics()
 
 		rocks = try RocksDB.database(atPath: self.path, andDBOptions: { (options) -> Void in

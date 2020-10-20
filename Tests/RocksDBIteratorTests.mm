@@ -18,7 +18,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"value 1".data forKey:@"key 1".data error:nil];
 	[_rocks setData:@"value 2".data forKey:@"key 2".data error:nil];
@@ -40,7 +41,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"value 1".data forKey:@"key 1".data error:nil];
 	[_rocks setData:@"value 2".data forKey:@"key 2".data error:nil];
@@ -84,7 +86,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"value 1".data forKey:@"key 1".data error:nil];
 	[_rocks setData:@"value 2".data forKey:@"key 2".data error:nil];
@@ -106,7 +109,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"value 1".data forKey:@"key 1".data error:nil];
 	[_rocks setData:@"value 2".data forKey:@"key 2".data error:nil];
@@ -128,7 +132,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"value 1".data forKey:@"key 1".data error:nil];
 	[_rocks setData:@"value 2".data forKey:@"key 2".data error:nil];
@@ -151,7 +156,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"value 1".data forKey:@"key 1".data error:nil];
 	[_rocks setData:@"value 2".data forKey:@"key 2".data error:nil];
@@ -174,7 +180,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"value 1".data forKey:@"key 1".data error:nil];
 	[_rocks setData:@"value 2".data forKey:@"key 2".data error:nil];
@@ -197,7 +204,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"value 1".data forKey:@"key 1".data error:nil];
 	[_rocks setData:@"value 2".data forKey:@"key 2".data error:nil];
@@ -220,7 +228,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"value 1".data forKey:@"key 1".data error:nil];
 	[_rocks setData:@"value 2".data forKey:@"key 2".data error:nil];
@@ -243,7 +252,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"value 1".data forKey:@"key 1".data error:nil];
 	[_rocks setData:@"value 2".data forKey:@"key 2".data error:nil];
@@ -269,7 +279,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"value 1".data forKey:@"key 1".data error:nil];
 	[_rocks setData:@"value 2".data forKey:@"key 2".data error:nil];
@@ -295,7 +306,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"value 1".data forKey:@"key 1".data error:nil];
 	[_rocks setData:@"value 2".data forKey:@"key 2".data error:nil];

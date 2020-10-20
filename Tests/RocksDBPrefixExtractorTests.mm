@@ -21,7 +21,8 @@
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
 		options.prefixExtractor = [RocksDBPrefixExtractor prefixExtractorWithType:RocksDBPrefixFixedLength length:3];
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"x".data forKey:@"100A".data error:nil];
 	[_rocks setData:@"x".data forKey:@"100B".data error:nil];
@@ -80,7 +81,8 @@
 		options.tableFacotry = [RocksDBTableFactory blockBasedTableFactoryWithOptions:^(RocksDBBlockBasedTableOptions *options) {
 			options.filterPolicy = [RocksDBFilterPolicy bloomFilterPolicyWithBitsPerKey:10 useBlockBasedBuilder:YES];
 		}];
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"x".data forKey:@"1010".data error:nil];
 	[_rocks setData:@"x".data forKey:@"4211".data error:nil];

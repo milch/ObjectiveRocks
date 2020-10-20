@@ -18,7 +18,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	[_rocks performWriteBatch:^(RocksDBWriteBatch *batch, RocksDBWriteOptions *options) {
 		[batch setData:@"Value 1".data forKey:@"Key 1".data];
@@ -36,7 +37,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"Value 1".data forKey:@"Key 1".data error:nil];
 
@@ -56,7 +58,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"Value 1".data forKey:@"Key 1".data error:nil];
 
@@ -78,7 +81,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	RocksDBWriteBatch *batch = [_rocks writeBatch];
 
@@ -98,7 +102,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"Value 1".data forKey:@"Key 1".data error:nil];
 
@@ -133,7 +138,8 @@
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
 		options.mergeOperator = mergeOp;
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"Value 1".data forKey:@"Key 1".data error:nil];
 
@@ -153,7 +159,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"Value 1".data forKey:@"Key 1".data error:nil];
 
@@ -177,7 +184,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"Value 1".data forKey:@"Key 1".data error:nil];
 

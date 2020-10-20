@@ -21,7 +21,8 @@
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
 		options.statistics = statistics;
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"abcd".data forKey:@"abcd".data error:nil];
 
@@ -35,7 +36,8 @@
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
 		options.statistics = statistics;
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"abcd".data forKey:@"abcd".data error:nil];
 
@@ -54,7 +56,8 @@
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
 		options.statistics = statistics;
-	}];
+	}
+							   error: nil];
 
 	for (int i = 0; i < 10000; i++) {
 		NSString *str = [NSString stringWithFormat:@"a%d", i];

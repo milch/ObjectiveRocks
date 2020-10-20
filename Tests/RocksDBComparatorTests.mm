@@ -19,7 +19,8 @@
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
 		options.comparator = [RocksDBComparator comaparatorWithType:RocksDBComparatorBytewiseAscending];
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"abc1".data forKey:@"abc1".data error:nil];
 	[_rocks setData:@"abc2".data forKey:@"abc2".data error:nil];
@@ -69,7 +70,8 @@
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
 		options.comparator = [RocksDBComparator comaparatorWithType:RocksDBComparatorBytewiseDescending];
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"abc1".data forKey:@"abc1".data error:nil];
 	[_rocks setData:@"abc2".data forKey:@"abc2".data error:nil];
@@ -123,8 +125,8 @@
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
 		options.comparator = [RocksDBComparator comaparatorWithType:RocksDBComparatorStringCompareAscending];
-	}];
-
+	}
+							   error: nil];
 
 	NSMutableArray *expected = [NSMutableArray array];
 	for (int i = 0; i < 10000; i++) {
@@ -149,8 +151,8 @@
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
 		options.comparator = [RocksDBComparator comaparatorWithType:RocksDBComparatorStringCompareDescending];
-	}];
-
+	}
+							   error: nil];
 
 	NSMutableArray *expected = [NSMutableArray array];
 	for (int i = 0; i < 10000; i++) {

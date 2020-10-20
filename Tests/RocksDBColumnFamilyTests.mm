@@ -18,7 +18,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 	[_rocks close];
 
 	NSArray *names = [RocksDB listColumnFamiliesInDatabaseAtPath:_path];
@@ -31,7 +32,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	RocksDBColumnFamily *columnFamily = [_rocks createColumnFamilyWithName:@"new_cf" andOptions:nil];
 
@@ -49,7 +51,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	RocksDBColumnFamily *columnFamily = [_rocks createColumnFamilyWithName:@"new_cf" andOptions:nil];
 
@@ -68,7 +71,8 @@
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
 		options.comparator = [RocksDBComparator comaparatorWithType:RocksDBComparatorStringCompareAscending];
-	}];
+	}
+							   error: nil];
 
 	RocksDBColumnFamily *columnFamily = [_rocks createColumnFamilyWithName:@"new_cf" andOptions:^(RocksDBColumnFamilyOptions *options) {
 		options.comparator = [RocksDBComparator comaparatorWithType:RocksDBComparatorBytewiseDescending];
@@ -93,7 +97,8 @@
 
 	_rocks = [RocksDB databaseAtPath:_path columnFamilies:descriptor andDatabaseOptions:^(RocksDBDatabaseOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	XCTAssertNotNil(_rocks);
 
@@ -114,7 +119,8 @@
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
 		options.comparator = [RocksDBComparator comaparatorWithType:RocksDBComparatorStringCompareAscending];
-	}];
+	}
+							   error: nil];
 
 	RocksDBColumnFamily *columnFamily = [_rocks createColumnFamilyWithName:@"new_cf" andOptions:^(RocksDBColumnFamilyOptions *options) {
 		options.comparator = [RocksDBComparator comaparatorWithType:RocksDBComparatorBytewiseDescending];
@@ -137,9 +143,11 @@
 		options.comparator = [RocksDBComparator comaparatorWithType:RocksDBComparatorStringCompareAscending];
 	}];
 
+	NSError *error = nil;
 	_rocks = [RocksDB databaseAtPath:_path columnFamilies:descriptor andDatabaseOptions:^(RocksDBDatabaseOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: &error];
 
 	XCTAssertNil(_rocks);
 }
@@ -148,7 +156,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	[_rocks setData:@"df_value".data forKey:@"df_key1".data error:nil];
 	[_rocks setData:@"df_value".data forKey:@"df_key2".data error:nil];
@@ -167,7 +176,8 @@
 
 	_rocks = [RocksDB databaseAtPath:_path columnFamilies:descriptor andDatabaseOptions:^(RocksDBDatabaseOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 
 	RocksDBColumnFamily *defaultColumnFamily = _rocks.columnFamilies[0];
 	RocksDBColumnFamily *newColumnFamily = _rocks.columnFamilies[1];
@@ -208,7 +218,8 @@
 	_rocks = [RocksDB databaseAtPath:_path columnFamilies:descriptor andDatabaseOptions:^(RocksDBDatabaseOptions *options) {
 		options.createIfMissing = YES;
 		options.createMissingColumnFamilies = YES;
-	}];
+	}
+							   error: nil];
 
 	RocksDBColumnFamily *defaultColumnFamily = _rocks.columnFamilies[0];
 	RocksDBColumnFamily *newColumnFamily = _rocks.columnFamilies[1];
@@ -249,7 +260,8 @@
 	_rocks = [RocksDB databaseAtPath:_path columnFamilies:descriptor andDatabaseOptions:^(RocksDBDatabaseOptions *options) {
 		options.createIfMissing = YES;
 		options.createMissingColumnFamilies = YES;
-	}];
+	}
+							   error: nil];
 
 	RocksDBColumnFamily *defaultColumnFamily = _rocks.columnFamilies[0];
 	RocksDBColumnFamily *newColumnFamily = _rocks.columnFamilies[1];

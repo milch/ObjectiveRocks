@@ -24,7 +24,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 	XCTAssertNotNil(_rocks);
 	[_rocks close];
 
@@ -36,7 +37,8 @@
 {
 	_rocks = [RocksDB databaseAtPath:_path andDBOptions:^(RocksDBOptions *options) {
 		options.createIfMissing = YES;
-	}];
+	}
+							   error: nil];
 	XCTAssertNotNil(_rocks);
 	[_rocks setData:@"data".data forKey:@"key".data error:nil];
 	[_rocks close];
