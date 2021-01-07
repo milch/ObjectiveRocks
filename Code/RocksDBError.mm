@@ -42,4 +42,13 @@ NSString * const RocksDBSubcodeKey = @"rocksdb.subcode";
 	return [NSError errorWithDomain:RocksDBErrorDomain code:3000 userInfo:userInfo];
 }
 
++ (NSError *)errorIsClosed {
+	return [NSError errorWithDomain:RocksDBErrorDomain
+							   code:rocksdb::Status::kAborted
+						   userInfo:@{
+							   NSLocalizedDescriptionKey : @"Operation couldn't be completed, database is closed",
+							   NSLocalizedFailureReasonErrorKey : @"Database is closed"
+						   }];
+}
+
 @end

@@ -50,6 +50,7 @@
 	rocksdb::DB *_db;
 	rocksdb::ColumnFamilyHandle *_columnFamily;
 	std::vector<rocksdb::ColumnFamilyHandle *> *_columnFamilyHandles;
+	std::atomic<bool> _closed;
 
 	NSMutableArray *_columnFamilies;
 
@@ -166,18 +167,20 @@
 
 - (void)close
 {
-	@synchronized(self) {
-		[_columnFamilies makeObjectsPerformSelector:@selector(close)];
+	if (_closed.load()) {
+		return ;
+	}
+	_closed = true;
+	[_columnFamilies makeObjectsPerformSelector:@selector(close)];
 
-		if (_columnFamilyHandles != nullptr) {
-			delete _columnFamilyHandles;
-			_columnFamilyHandles = nullptr;
-		}
+	if (_columnFamilyHandles != nullptr) {
+		delete _columnFamilyHandles;
+		_columnFamilyHandles = nullptr;
+	}
 
-		if (_db != nullptr) {
-			delete _db;
-			_db = nullptr;
-		}
+	if (_db != nullptr) {
+		delete _db;
+		_db = nullptr;
 	}
 }
 
@@ -206,6 +209,7 @@
 		return NO;
 	}
 	_columnFamily = _db->DefaultColumnFamily();
+	_closed = false;
 
 	return YES;
 }
@@ -239,6 +243,7 @@
 		return NO;
 	}
 	_columnFamily = _db->DefaultColumnFamily();
+	_closed = false;
 
 	return YES;
 }
@@ -263,6 +268,9 @@
 
 - (RocksDBColumnFamily *)createColumnFamilyWithName:(NSString *)name andOptions:(void (^)(RocksDBColumnFamilyOptions *options))optionsBlock
 {
+	if (_closed.load()) {
+		return nil;
+	}
 	RocksDBColumnFamilyOptions *columnFamilyOptions = [RocksDBColumnFamilyOptions new];
 	if (optionsBlock) {
 		optionsBlock(columnFamilyOptions);
@@ -286,6 +294,9 @@
 
 - (NSArray *)columnFamilies
 {
+	if (_closed.load()) {
+		return nil;
+	}
 	if (_columnFamilyHandles == nullptr) {
 		return nil;
 	}
@@ -307,6 +318,9 @@
 
 - (RocksDBColumnFamilyMetaData *)columnFamilyMetaData
 {
+	if (_closed.load()) {
+		return nil;
+	}
 	rocksdb::ColumnFamilyMetaData metadata;
 	_db->GetColumnFamilyMetaData(_columnFamily, &metadata);
 
@@ -338,6 +352,9 @@
 
 - (NSString *)valueForProperty:(RocksDBProperty)property
 {
+	if (_closed.load()) {
+		return nil;
+	}
 	std::string value;
 	bool ok = _db->GetProperty(_columnFamily,
 							   SliceFromData([ResolveProperty(property) dataUsingEncoding:NSUTF8StringEncoding]),
@@ -352,6 +369,9 @@
 
 - (uint64_t)valueForIntProperty:(RocksDBIntProperty)property
 {
+	if (_closed.load()) {
+		return 0;
+	}
 	uint64_t value;
 	bool ok = _db->GetIntProperty(_columnFamily,
 								  SliceFromData([ResolveIntProperty(property) dataUsingEncoding:NSUTF8StringEncoding]),
@@ -368,6 +388,10 @@
 
 - (BOOL)setData:(NSData *)anObject forKey:(NSData *)aKey error:(NSError * __autoreleasing *)error
 {
+	if (_closed.load()) {
+		*error = [RocksDBError errorIsClosed];
+		return NO;
+	}
 	return [self setData:anObject forKey:aKey writeOptions:nil error:error];
 }
 
@@ -376,6 +400,10 @@
 	 writeOptions:(void (^)(RocksDBWriteOptions *writeOptions))writeOptionsBlock
 			error:(NSError * __autoreleasing *)error
 {
+	if (_closed.load()) {
+		*error = [RocksDBError errorIsClosed];
+		return NO;
+	}
 	RocksDBWriteOptions *writeOptions = [_writeOptions copy];
 	if (writeOptionsBlock) {
 		writeOptionsBlock(writeOptions);
@@ -401,6 +429,10 @@
 
 - (BOOL)mergeData:(NSData *)anObject forKey:(NSData *)aKey error:(NSError * __autoreleasing *)error
 {
+	if (_closed.load()) {
+		*error = [RocksDBError errorIsClosed];
+		return NO;
+	}
 	return [self mergeData:anObject forKey:aKey writeOptions:nil error:error];
 }
 
@@ -409,6 +441,10 @@
 	 writeOptions:(void (^)(RocksDBWriteOptions *writeOptions))writeOptionsBlock
 			error:(NSError * __autoreleasing *)error
 {
+	if (_closed.load()) {
+		*error = [RocksDBError errorIsClosed];
+		return NO;
+	}
 	RocksDBWriteOptions *writeOptions = [_writeOptions copy];
 	if (writeOptionsBlock) {
 		writeOptionsBlock(writeOptions);
@@ -434,6 +470,10 @@
 
 - (NSData *)dataForKey:(NSData *)aKey error:(NSError * __autoreleasing *)error
 {
+	if (_closed.load()) {
+		*error = [RocksDBError errorIsClosed];
+		return nil;
+	}
 	return [self dataForKey:aKey readOptions:nil error:error];
 }
 
@@ -441,6 +481,10 @@
 		   readOptions:(void (^)(RocksDBReadOptions *readOptions))readOptionsBlock
 				 error:(NSError * __autoreleasing *)error
 {
+	if (_closed.load()) {
+		*error = [RocksDBError errorIsClosed];
+		return nil;
+	}
 	RocksDBReadOptions *readOptions = [_readOptions copy];
 	if (readOptionsBlock) {
 		readOptionsBlock(readOptions);
@@ -466,6 +510,10 @@
 
 - (BOOL)deleteDataForKey:(NSData *)aKey error:(NSError * __autoreleasing *)error
 {
+	if (_closed.load()) {
+		*error = [RocksDBError errorIsClosed];
+		return NO;
+	}
 	return [self deleteDataForKey:aKey writeOptions:nil error:error];
 }
 
@@ -473,6 +521,10 @@
 			writeOptions:(void (^)(RocksDBWriteOptions *writeOptions))writeOptionsBlock
 				   error:(NSError * __autoreleasing *)error
 {
+	if (_closed.load()) {
+		*error = [RocksDBError errorIsClosed];
+		return NO;
+	}
 	RocksDBWriteOptions *writeOptions = [_writeOptions copy];
 	if (writeOptionsBlock) {
 		writeOptionsBlock(writeOptions);
@@ -497,12 +549,19 @@
 
 - (RocksDBWriteBatch *)writeBatch
 {
+	if (_closed.load()) {
+		return nil;
+	}
 	return [[RocksDBWriteBatch alloc] initWithColumnFamily:_columnFamily];
 }
 
 - (BOOL)performWriteBatch:(void (^)(RocksDBWriteBatch *batch, RocksDBWriteOptions *options))batchBlock
 					error:(NSError * __autoreleasing *)error
 {
+	if (_closed.load()) {
+		*error = [RocksDBError errorIsClosed];
+		return NO;
+	}
 	if (batchBlock == nil) return NO;
 
 	RocksDBWriteBatch *writeBatch = [self writeBatch];
@@ -526,6 +585,10 @@
 		   writeOptions:(void (^)(RocksDBWriteOptions *writeOptions))writeOptionsBlock
 				  error:(NSError * __autoreleasing *)error
 {
+	if (_closed.load()) {
+		*error = [RocksDBError errorIsClosed];
+		return NO;
+	}
 	RocksDBWriteOptions *writeOptions = [_writeOptions copy];
 	if (writeOptionsBlock) {
 		writeOptionsBlock(writeOptions);
@@ -548,6 +611,9 @@
 
 - (RocksDBIndexedWriteBatch *)indexedWriteBatch
 {
+	if (_closed.load()) {
+		return nil;
+	}
 	return [[RocksDBIndexedWriteBatch alloc] initWithDBInstance:_db
 												   columnFamily:_columnFamily
 													readOptions:_readOptions];
@@ -556,6 +622,10 @@
 - (BOOL)performIndexedWriteBatch:(void (^)(RocksDBIndexedWriteBatch *batch, RocksDBWriteOptions *options))batchBlock
 						   error:(NSError * __autoreleasing *)error
 {
+	if (_closed.load()) {
+		*error = [RocksDBError errorIsClosed];
+		return NO;
+	}
 	if (batchBlock == nil) return NO;
 
 	RocksDBIndexedWriteBatch *writeBatch = [self indexedWriteBatch];
@@ -581,6 +651,9 @@
 
 - (RocksDBIterator *)iterator
 {
+	if (_closed.load()) {
+		return nil;
+	}
 	return [self iteratorWithReadOptions:nil];
 }
 
@@ -600,11 +673,17 @@
 
 - (RocksDBSnapshot *)snapshot
 {
+	if (_closed.load()) {
+		return nil;
+	}
 	return [self snapshotWithReadOptions:nil];
 }
 
 - (RocksDBSnapshot *)snapshotWithReadOptions:(void (^)(RocksDBReadOptions *readOptions))readOptionsBlock
 {
+	if (_closed.load()) {
+		return nil;
+	}
 	RocksDBReadOptions *readOptions = [_readOptions copy];
 	if (readOptionsBlock) {
 		readOptionsBlock(readOptions);
@@ -624,6 +703,10 @@
 		 withOptions:(void (^)(RocksDBCompactRangeOptions *options))optionsBlock
 			   error:(NSError * __autoreleasing *)error
 {
+	if (_closed.load()) {
+		*error = [RocksDBError errorIsClosed];
+		return NO;
+	}
 	RocksDBCompactRangeOptions *rangeOptions = [RocksDBCompactRangeOptions new];
 	if (optionsBlock) {
 		optionsBlock(rangeOptions);

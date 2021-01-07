@@ -29,6 +29,7 @@ class RocksDBBasicTests : RocksDBTests {
         XCTAssertFalse(rocks.isClosed())
         rocks.close()
         XCTAssertTrue(rocks.isClosed())
+        XCTAssertThrowsError(try rocks.data(forKey: "key 1"));
     }
 
 	func testSwift_DB_CRUD() throws {

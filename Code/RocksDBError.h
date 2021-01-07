@@ -18,5 +18,6 @@ extern NSString * const RocksDBErrorDomain;
 
 + (NSError *)errorWithRocksStatus:(rocksdb::Status)status;
 + (NSError *)errorForMissingConversionBlock;
++ (NSError *)errorIsClosed;
 
 @end
