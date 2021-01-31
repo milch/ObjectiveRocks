@@ -44,3 +44,7 @@ Carthage/Build
 
 # CocoaPods Lint
 rocksdb_src
+
+# SPM
+.build
+.swiftpm
