@@ -65,7 +65,9 @@ let package = Package(
       name: "ObjectiveRocks",
       targets: ["ObjectiveRocks", "RocksDB"])
   ],
-  dependencies: [],
+  dependencies: [
+    .package(name: "lz4", url: "https://github.com/milch/lz4-spm", .upToNextMinor(from: "1.9.3"))
+  ],
   targets: [
     .target(
       name: "ObjectiveRocks",
@@ -89,7 +91,7 @@ let package = Package(
     ),
     .target(
       name: "RocksDB",
-      dependencies: [],
+      dependencies: [ "lz4" ],
       path: "rocksdb",
       exclude: [
         "java",
@@ -330,6 +332,7 @@ let package = Package(
         .headerSearchPath("include"),
         .headerSearchPath("."),
         .define("NDEBUG", to: "1"),
+        .define("LZ4", to: "1"),
         .define("OS_MACOSX", to: "1"),
         .define("ROCKSDB_PLATFORM_POSIX", to: "1"),
         .define("ROCKSDB_LIB_IO_POSIX", to: "1"),
