@@ -715,7 +715,7 @@
 	rocksdb::Slice startSlice = SliceFromData(range.start);
 	rocksdb::Slice endSlice = SliceFromData(range.end);
 
-	rocksdb::Status status = _db->CompactRange(rangeOptions.options, _columnFamily, &startSlice, &endSlice);
+	rocksdb::Status status = _db->CompactRange(rangeOptions->options, _columnFamily, &startSlice, &endSlice);
 
 	if (!status.ok()) {
 		NSError *temp = [RocksDBError errorWithRocksStatus:status];
